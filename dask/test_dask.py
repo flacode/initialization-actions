@@ -1,6 +1,5 @@
 import os
 
-import pkg_resources
 from absl.testing import absltest
 from absl.testing import parameterized
 
@@ -35,11 +34,8 @@ class DaskTestCase(DataprocTestCase):
         ("STANDARD", ["m", "w-0"], "yarn"),
         ("STANDARD", ["m"], "standalone"))
     def test_dask(self, configuration, instances, runtime):
-        if self.getImageOs() == 'centos':
-            self.skipTest("Not supported in CentOS-based images")
-
-        if self.getImageVersion() <= pkg_resources.parse_version("1.4"):
-            self.skipTest("Not supported in pre 1.5 images")
+        if self.getImageOs() == 'rocky':
+            self.skipTest("Not supported in Rocky Linux-based images")
 
         metadata = None
         if runtime:
